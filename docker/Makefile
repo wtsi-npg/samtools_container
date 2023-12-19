@@ -7,8 +7,8 @@ DOCKER_REGISTRY?=docker.io
 DOCKER_USER?=wsinpg
 endif
 
-DOCKER_REGISTRY=ghcr.io
-DOCKER_USER=wtsi-npg
+#DOCKER_REGISTRY=ghcr.io
+#DOCKER_USER=wtsi-npg
 
 NOW=$(shell date --utc --iso-8601=seconds)
 
