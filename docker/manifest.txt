@@ -1,0 +1,4 @@
+bcftools
+samtools
+htsfile
+tabix
