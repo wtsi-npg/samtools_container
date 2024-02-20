@@ -1,9 +1,0 @@
-{
-    "package": "samtools",
-    "executable": [
-        "bcftools",
-        "samtools",
-        "htsfile",
-        "tabix"
-    ]
-}
