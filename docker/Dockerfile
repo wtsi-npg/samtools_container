@@ -99,6 +99,7 @@ FROM ubuntu:18.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
     apt-get install -qq -y --no-install-recommends \
+      libcurl4 \
       libssl-dev \
       gpg \
       gpg-agent \
