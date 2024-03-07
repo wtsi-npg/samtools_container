@@ -32,14 +32,9 @@ e.g. List the programs provided by a container:
 
     $ docker run wsinpg/ub-18.04-irods-clients-4.2.11:latest \
         singularity-wrapper list
-    {
-        "package": "irods-clients",
-        "executable": [
-            "baton-chmod",
-            ...
-            "samtools"
-        ]
-    }
+    bcftools
+    ...
+    tabix
 
 e.g. Install wrappers to $PREFIX/bin:
 
@@ -48,9 +43,9 @@ e.g. Install wrappers to $PREFIX/bin:
           singularity-wrapper -p /mnt/tmp install
 
     $ ls $PREFIX/bin
-    -rwxr-xr-x 1 kdj staff 406 Apr 12 15:47 baton-chmod
+    -rwxr-xr-x 1 kdj staff 406 Apr 12 15:47 bcftools
     ...
-    -rwxr-xr-x 1 kdj staff 409 Apr 12 15:47 samtools
+    -rwxr-xr-x 1 kdj staff 409 Apr 12 15:47 tabix
 
 
 ## Author
