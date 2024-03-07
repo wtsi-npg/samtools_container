@@ -12,6 +12,20 @@ metadata based on `git describe`.
     cd ./docker
     make
 
+## Release instructions
+
+When releasing/tagging a new version please use annotated tags in the
+command line interface.
+
+```bash
+git checkout master
+git tag -a 'x.y.z' -m 'release x.y.z'
+git push origin x.y.z
+```
+
+Using the web interface to create a release is known to produce
+undesirable effects when picked up by automation.
+
 # NPG Singularity wrappers
 
 Each container that provides command line programs is self-documenting
