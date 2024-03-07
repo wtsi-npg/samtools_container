@@ -1,4 +1,6 @@
 bcftools
+plot-ampliconstats
+plot-bamstats
 samtools
 htsfile
 tabix
