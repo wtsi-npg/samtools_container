@@ -12,6 +12,21 @@ metadata based on `git describe`.
     cd ./docker
     make
 
+## Release instructions
+
+When tagging a new version please use annotated tags in the command line
+interface.
+
+```bash
+git clone --branch master git@github.com:wtsi-npg/samtools_container.git samtools_container && cd $_
+git tag -a 'x.y.z' -m 'release x.y.z'
+git push origin x.y.z
+```
+
+Releases are created and published automatically by a GitHub Action on tag
+creation. Using the web interface to create a release will cause that
+automation to fail.
+
 # NPG Singularity wrappers
 
 Each container that provides command line programs is self-documenting
