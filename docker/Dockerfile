@@ -101,6 +101,7 @@ RUN apt-get update && \
     apt-get install -qq -y --no-install-recommends \
       libcurl4 \
       libssl-dev \
+      gnuplot \
       gpg \
       gpg-agent \
       locales && \
@@ -108,6 +109,8 @@ RUN apt-get update && \
       localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
 
 
+COPY --from=samtools_build /usr/local/bin/plot-ampliconstats /usr/local/bin/plot-ampliconstats
+COPY --from=samtools_build /usr/local/bin/plot-bamstats /usr/local/bin/plot-bamstats
 COPY --from=samtools_build /usr/local/bin/samtools /usr/local/bin/samtools
 COPY --from=samtools_build /usr/local/bin/bcftools /usr/local/bin/bcftools
 COPY --from=samtools_build /usr/local/bin/htsfile /usr/local/bin/htsfile
