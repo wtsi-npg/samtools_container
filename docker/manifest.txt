@@ -1,4 +1,7 @@
 bcftools
+plot-ampliconstats
+plot-bamstats
 samtools
+seq_cache_populate.pl
 htsfile
 tabix
