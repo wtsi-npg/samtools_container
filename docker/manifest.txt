@@ -1,4 +1,5 @@
 bcftools
+md5fa
 plot-ampliconstats
 plot-bamstats
 samtools

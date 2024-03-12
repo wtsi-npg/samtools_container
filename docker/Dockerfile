@@ -110,6 +110,7 @@ RUN apt-get update && \
       localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
 
 
+COPY --from=samtools_build /usr/local/bin/md5fa /usr/local/bin/md5fa
 COPY --from=samtools_build /usr/local/bin/plot-ampliconstats /usr/local/bin/plot-ampliconstats
 COPY --from=samtools_build /usr/local/bin/plot-bamstats /usr/local/bin/plot-bamstats
 COPY --from=samtools_build /usr/local/bin/samtools /usr/local/bin/samtools
