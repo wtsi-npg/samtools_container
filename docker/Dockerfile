@@ -1,12 +1,12 @@
+ARG IRODS_VERSION="4.2.11"
+
 FROM ubuntu:18.04 AS samtools_build
 
 ARG HTSLIB_VERSION=1.19.1
 ARG SAMTOOLS_VERSION=1.19.2
 ARG BCFTOOLS_VERSION=1.19
-ARG IRODS_VERSION="4.2.11"
+ARG IRODS_VERSION
 ARG DEFLATE_VERSION=1.19
-
-COPY irods_clients_dev /opt/docker/irods_clients_dev
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
@@ -25,6 +25,7 @@ RUN apt-get update && \
       libncurses5-dev \
       curl \
       dirmngr \
+      git \
       gpg \
       gpg-agent \
       cmake \
@@ -37,7 +38,6 @@ ENV LANG=en_GB.UTF-8 \
     LANGUAGE=en_GB \
     LC_ALL=en_GB.UTF-8
 
-
 RUN curl -sSL https://packages.irods.org/irods-signing-key.asc | apt-key add - && \
     echo "deb [arch=amd64] https://packages.irods.org/apt/ $(lsb_release -sc) main" |\
     tee /etc/apt/sources.list.d/renci-irods.list && \
@@ -45,13 +45,6 @@ RUN curl -sSL https://packages.irods.org/irods-signing-key.asc | apt-key add - &
     apt-get install -q -y --no-install-recommends \
     irods-dev="${IRODS_VERSION}-1~$(lsb_release -sc)" \
     irods-runtime="${IRODS_VERSION}-1~$(lsb_release -sc)"
-
-RUN apt-key add - < /opt/docker/irods_clients_dev/keys/git-core-ppa.asc && \
-    echo "deb https://ppa.launchpadcontent.net/git-core/ppa/ubuntu $(lsb_release -sc) main" |\
-    tee /etc/apt/sources.list.d/git-core.list && \
-    apt-get update && \
-    apt-get install -q -y --no-install-recommends \
-    git
 
 RUN cd /tmp && \
     curl -sSL -O https://github.com/ebiggers/libdeflate/releases/download/v${DEFLATE_VERSION}/libdeflate-${DEFLATE_VERSION}.tar.gz && \
@@ -96,19 +89,33 @@ RUN cd /tmp && \
 #
 FROM ubuntu:18.04
 
+ARG IRODS_VERSION
+
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
     apt-get install -qq -y --no-install-recommends \
+      ca-certificates \
+      curl \
       libcurl4 \
       libssl-dev \
+      lsb-release \
       gnuplot \
       gpg \
       gpg-agent \
       perl \
       locales && \
-      locale-gen en_GB en_GB.UTF-8 && \
-      localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
+    locale-gen en_GB en_GB.UTF-8 && \
+    localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
 
+RUN curl -sSL https://packages.irods.org/irods-signing-key.asc | apt-key add - && \
+    echo "deb [arch=amd64] https://packages.irods.org/apt/ $(lsb_release -sc) main" |\
+    tee /etc/apt/sources.list.d/renci-irods.list && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      irods-runtime="${IRODS_VERSION}-1~$(lsb_release -sc)"
+
+RUN apt-get autoremove --yes && \
+    apt-get clean --yes
 
 COPY --from=samtools_build /usr/local/bin/md5fa /usr/local/bin/md5fa
 COPY --from=samtools_build /usr/local/bin/plot-ampliconstats /usr/local/bin/plot-ampliconstats
@@ -118,10 +125,7 @@ COPY --from=samtools_build /usr/local/bin/seq_cache_populate.pl /usr/local/bin/s
 COPY --from=samtools_build /usr/local/bin/bcftools /usr/local/bin/bcftools
 COPY --from=samtools_build /usr/local/bin/htsfile /usr/local/bin/htsfile
 COPY --from=samtools_build /usr/local/bin/tabix /usr/local/bin/tabix
-COPY --from=samtools_build /usr/local/lib/lib* /usr/local/lib/
-COPY --from=samtools_build /usr/lib/lib* /usr/lib/
 COPY --from=samtools_build /usr/local/libexec/htslib /usr/local/libexec/htslib/
-COPY --from=samtools_build /opt/irods-externals /opt/irods-externals
 COPY --from=samtools_build /tmp/libdeflate-1.19/libdeflate.so* /usr/local/lib/
 
 # Copy the singularity-wrapper scripts
