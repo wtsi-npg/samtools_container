@@ -38,9 +38,9 @@ samtools.$(TAG): Dockerfile
 	--build-arg DOCKER_TAG=$(TAG) \
 	--build-arg IRODS_VERSION=4.2.11 \
 	--build-arg BATON_VERSION=4.2.1 \
-	--build-arg HTSLIB_VERSION=1.19.1 \
-	--build-arg SAMTOOLS_VERSION=1.19.2 \
-	--build-arg BCFTOOLS_VERSION=1.19 \
+	--build-arg HTSLIB_VERSION=1.20 \
+	--build-arg SAMTOOLS_VERSION=1.20 \
+	--build-arg BCFTOOLS_VERSION=1.20 \
 	--label org.opencontainers.image.title="samtools" \
 	--label org.opencontainers.image.source=$(git_url) \
 	--label org.opencontainers.image.revision=$(git_commit) \

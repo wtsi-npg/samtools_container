@@ -1,12 +1,16 @@
 ARG IRODS_VERSION="4.2.11"
+ARG HTSLIB_VERSION=1.20
+ARG SAMTOOLS_VERSION=1.20
+ARG BCFTOOLS_VERSION=1.20
+ARG DEFLATE_VERSION=1.20
 
 FROM ubuntu:18.04 AS samtools_build
 
-ARG HTSLIB_VERSION=1.19.1
-ARG SAMTOOLS_VERSION=1.19.2
-ARG BCFTOOLS_VERSION=1.19
 ARG IRODS_VERSION
-ARG DEFLATE_VERSION=1.19
+ARG HTSLIB_VERSION
+ARG SAMTOOLS_VERSION
+ARG BCFTOOLS_VERSION
+ARG DEFLATE_VERSION
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
@@ -90,6 +94,7 @@ RUN cd /tmp && \
 FROM ubuntu:18.04
 
 ARG IRODS_VERSION
+ARG DEFLATE_VERSION
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
@@ -126,7 +131,7 @@ COPY --from=samtools_build /usr/local/bin/bcftools /usr/local/bin/bcftools
 COPY --from=samtools_build /usr/local/bin/htsfile /usr/local/bin/htsfile
 COPY --from=samtools_build /usr/local/bin/tabix /usr/local/bin/tabix
 COPY --from=samtools_build /usr/local/libexec/htslib /usr/local/libexec/htslib/
-COPY --from=samtools_build /tmp/libdeflate-1.19/libdeflate.so* /usr/local/lib/
+COPY --from=samtools_build /tmp/libdeflate-$DEFLATE_VERSION/libdeflate.so* /usr/local/lib/
 
 # Copy the singularity-wrapper scripts
 ARG DOCKER_IMAGE
