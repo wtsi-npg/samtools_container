@@ -41,6 +41,7 @@ samtools.$(TAG): Dockerfile
 	--build-arg HTSLIB_VERSION=1.20 \
 	--build-arg SAMTOOLS_VERSION=1.20 \
 	--build-arg BCFTOOLS_VERSION=1.20 \
+	--build-arg DEFLATE_VERSION=1.20 \
 	--label org.opencontainers.image.title="samtools" \
 	--label org.opencontainers.image.source=$(git_url) \
 	--label org.opencontainers.image.revision=$(git_commit) \
