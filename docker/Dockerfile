@@ -55,13 +55,13 @@ RUN cd /tmp && \
     tar xzf libdeflate-${DEFLATE_VERSION}.tar.gz && \
     cd libdeflate-${DEFLATE_VERSION} && \
     cmake . && \
-    cmake --build .
+    make install
 
 RUN cd /tmp && \
     curl -sSL -O "https://github.com/samtools/htslib/releases/download/${HTSLIB_VERSION}/htslib-${HTSLIB_VERSION}.tar.bz2" && \
     tar xfj htslib-${HTSLIB_VERSION}.tar.bz2 && \
     cd htslib-${HTSLIB_VERSION} && \
-    CPPFLAGS=-I../libdeflate-${DEFLATE_VERSION} LDFLAGS=-L../libdeflate-${DEFLATE_VERSION} ./configure --enable-plugins --with-libdeflate && \
+    ./configure --enable-plugins --with-libdeflate && \
     make && \
     make install && \
     ldconfig
@@ -131,7 +131,7 @@ COPY --from=samtools_build /usr/local/bin/bcftools /usr/local/bin/bcftools
 COPY --from=samtools_build /usr/local/bin/htsfile /usr/local/bin/htsfile
 COPY --from=samtools_build /usr/local/bin/tabix /usr/local/bin/tabix
 COPY --from=samtools_build /usr/local/libexec/htslib /usr/local/libexec/htslib/
-COPY --from=samtools_build /tmp/libdeflate-$DEFLATE_VERSION/libdeflate.so* /usr/local/lib/
+COPY --from=samtools_build /usr/local/lib/libdeflate.so* /usr/local/lib/
 
 # Copy the singularity-wrapper scripts
 ARG DOCKER_IMAGE
