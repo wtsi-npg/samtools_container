@@ -144,5 +144,15 @@ RUN ldconfig
 COPY --from=singularity ./scripts/* /usr/local/bin/
 COPY ./manifest.txt /opt/wtsi-npg/etc/manifest.txt
 
+# Create and switch to New user
+ARG USER=appuser
+ARG UID=1000
+ARG GID=$UID
+
+RUN groupadd --gid $GID $USER && \
+    useradd --uid $UID --gid $GID --shell /bin/bash --create-home $USER
+
+USER $USER
+
 CMD ["/bin/bash"]
 
