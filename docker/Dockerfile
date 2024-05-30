@@ -122,17 +122,7 @@ RUN curl -sSL https://packages.irods.org/irods-signing-key.asc | apt-key add - &
 RUN apt-get autoremove --yes && \
     apt-get clean --yes
 
-COPY --from=samtools_build /usr/local/bin/md5fa /usr/local/bin/md5fa
-COPY --from=samtools_build /usr/local/bin/plot-ampliconstats /usr/local/bin/plot-ampliconstats
-COPY --from=samtools_build /usr/local/bin/plot-bamstats /usr/local/bin/plot-bamstats
-COPY --from=samtools_build /usr/local/bin/samtools /usr/local/bin/samtools
-COPY --from=samtools_build /usr/local/bin/seq_cache_populate.pl /usr/local/bin/seq_cache_populate.pl
-COPY --from=samtools_build /usr/local/bin/bcftools /usr/local/bin/bcftools
-COPY --from=samtools_build /usr/local/bin/bgzip /usr/local/bin/bgzip
-COPY --from=samtools_build /usr/local/bin/htsfile /usr/local/bin/htsfile
-COPY --from=samtools_build /usr/local/bin/tabix /usr/local/bin/tabix
-COPY --from=samtools_build /usr/local/libexec/htslib /usr/local/libexec/htslib/
-COPY --from=samtools_build /usr/local/lib/libdeflate.so* /usr/local/lib/
+COPY --from=samtools_build /usr/local /usr/local
 
 # Copy the singularity-wrapper scripts
 ARG DOCKER_IMAGE
