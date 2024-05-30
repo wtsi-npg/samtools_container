@@ -1,4 +1,5 @@
 bcftools
+bgzip
 md5fa
 plot-ampliconstats
 plot-bamstats

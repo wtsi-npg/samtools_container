@@ -128,6 +128,7 @@ COPY --from=samtools_build /usr/local/bin/plot-bamstats /usr/local/bin/plot-bams
 COPY --from=samtools_build /usr/local/bin/samtools /usr/local/bin/samtools
 COPY --from=samtools_build /usr/local/bin/seq_cache_populate.pl /usr/local/bin/seq_cache_populate.pl
 COPY --from=samtools_build /usr/local/bin/bcftools /usr/local/bin/bcftools
+COPY --from=samtools_build /usr/local/bin/bgzip /usr/local/bin/bgzip
 COPY --from=samtools_build /usr/local/bin/htsfile /usr/local/bin/htsfile
 COPY --from=samtools_build /usr/local/bin/tabix /usr/local/bin/tabix
 COPY --from=samtools_build /usr/local/libexec/htslib /usr/local/libexec/htslib/
