@@ -38,15 +38,16 @@ samtools.$(TAG): Dockerfile
 	--build-arg DOCKER_TAG=$(TAG) \
 	--build-arg IRODS_VERSION=4.2.11 \
 	--build-arg BATON_VERSION=4.2.1 \
-	--build-arg HTSLIB_VERSION=1.20 \
-	--build-arg SAMTOOLS_VERSION=1.20 \
-	--build-arg BCFTOOLS_VERSION=1.20 \
+	--build-arg HTSLIB_VERSION=1.21 \
+	--build-arg SAMTOOLS_VERSION=1.21 \
+	--build-arg BCFTOOLS_VERSION=1.21 \
 	--build-arg DEFLATE_VERSION=1.20 \
-	--label org.opencontainers.image.title="samtools" \
+	--label org.opencontainers.image.title=$(image_names) \
 	--label org.opencontainers.image.source=$(git_url) \
 	--label org.opencontainers.image.revision=$(git_commit) \
 	--label org.opencontainers.image.version=$(TAG) \
 	--label org.opencontainers.image.created=$(NOW) \
+	--label org.opencontainers.image.vendor=npg.sanger.ac.uk \
 	--tag $(DOCKER_PREFIX)/samtools:latest \
 	--tag $(DOCKER_PREFIX)/samtools:$(TAG) --file $< .
 	touch $@
