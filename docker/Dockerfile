@@ -96,6 +96,7 @@ FROM ubuntu:18.04
 ARG IRODS_VERSION
 ARG DEFLATE_VERSION
 
+# liburi-perl - is required for plot-bamstats
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
     apt-get install -qq -y --no-install-recommends \
@@ -103,6 +104,7 @@ RUN apt-get update && \
       curl \
       libcurl4 \
       libssl-dev \
+      liburi-perl \
       lsb-release \
       gnuplot \
       gpg \
