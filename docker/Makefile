@@ -37,7 +37,7 @@ samtools.$(TAG): Dockerfile
 	--build-arg DOCKER_IMAGE=$(subst .$(TAG),,$@) \
 	--build-arg DOCKER_TAG=$(TAG) \
 	--build-arg IRODS_VERSION=4.2.11 \
-	--build-arg BATON_VERSION=4.2.1 \
+	--build-arg BATON_VERSION=6.1.0 \
 	--build-arg HTSLIB_VERSION=1.24 \
 	--build-arg SAMTOOLS_VERSION=1.24 \
 	--build-arg BCFTOOLS_VERSION=1.24 \
